@@ -26,7 +26,7 @@ In a ***third*** time, the script **Download and execute** mimizatz and **save t
 
 And in a ***final*** time, the script **covers our tracks** by deleting mimizatz.exe and clearing the command history
 
-DATA
+TADA
 
 
 you can ask me if you need help or something about.
